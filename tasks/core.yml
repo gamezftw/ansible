@@ -1,0 +1,31 @@
+- name: Run the equivalent of "pacman -Sy" as a separate step
+  community.general.pacman:
+    update_cache: true
+
+- name: Install package foo from repo
+  community.general.pacman:
+    name: 
+      - git
+      - base-devel
+    state: present
+
+- name: Install collections
+  community.general.ansible_galaxy_install:
+    type: collection
+    requirements_file: requirements.yml
+
+- name: Create the `aur_builder` user
+  become: yes
+  ansible.builtin.user:
+    name: aur_builder
+    create_home: yes
+    group: wheel
+
+- name: Allow the `aur_builder` user to run `sudo pacman` without a password
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/11-install-aur_builder
+    line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+    create: yes
+    mode: 0644
+    validate: 'visudo -cf %s'

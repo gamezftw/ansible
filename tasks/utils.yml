@@ -1,0 +1,7 @@
+- name: Install ripgrep
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - ripgrep
+  become: yes
+  become_user: aur_builder

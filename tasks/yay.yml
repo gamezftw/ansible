@@ -1,0 +1,4 @@
+- name: Install package foo from repo
+  community.general.pacman:
+    name: git base-devel
+    state: latest
