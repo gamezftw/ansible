@@ -8,6 +8,18 @@ https://docs.ansible.com/ansible/latest/getting_started/get_started_playbook.htm
 https://docs.ansible.com/ansible/latest/collections/community/general/pacman_module.html
 
 
+https://docs.ansible.com/ansible/latest/vault_guide/vault_managing_passwords.html#storing-passwords-in-third-party-tools-with-vault-password-client-scripts
+
+# good article for vault stuff
+https://www.digitalocean.com/community/tutorials/how-to-use-vault-to-protect-sensitive-ansible-data
+
+# import vs include tasks
+https://serverfault.com/a/875292 
+
 ## Prime
 https://github.com/ThePrimeagen/ansible/tree/master
 https://github.com/ThePrimeagen/.dotfiles
+
+
+# NTP
+https://wiki.archlinux.org/title/Systemd-timesyncd
