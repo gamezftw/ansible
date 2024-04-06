@@ -1,0 +1,12 @@
+- name: Clone dotfiles repo
+  ansible.builtin.git:
+    repo: https://gitlab.com/nikola.stojkovic/dotfiles_new
+    dest: $HOME/.dotfiles
+    bare: true
+  become: true
+  become_user: "{{ user }}"
+
+- name: Git checkout
+  command: /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
+  become: true
+  become_user: "{{ user }}"

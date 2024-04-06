@@ -1,5 +1,11 @@
 - block: 
-  - name: Install ripgrep
+  - name: Install pacman util packages
+    community.general.pacman:
+      name: 
+        - less
+      state: present
+
+  - name: Install aur utils
     kewlfft.aur.aur:
       use: yay
       name:

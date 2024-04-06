@@ -23,3 +23,12 @@ https://github.com/ThePrimeagen/.dotfiles
 
 # NTP
 https://wiki.archlinux.org/title/Systemd-timesyncd
+
+# dotfiles
+https://news.ycombinator.com/item?id=11071754
+https://www.atlassian.com/git/tutorials/dotfiles
+
+
+
+
+https://medium.com/@ridaehamdani/creating-ansible-tasks-to-install-zsh-8aca8929023d

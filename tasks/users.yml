@@ -2,7 +2,8 @@
   ansible.builtin.user:
     name: "{{ user }}"
     group: wheel
-    create_home: false
+    create_home: true
+    skeleton: /dev/null
     password: "{{ vault_password | password_hash('sha512') }}"
 
 - name: Add user to sudoers
