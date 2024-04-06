@@ -1,5 +1,5 @@
-- hosts: 127.0.0.1
-  connection: local
+- hosts: pc
+  # connection: local
   # vars:
   #   source_key: "./.ssh/id_rsa"
   #   dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
@@ -15,8 +15,9 @@
   #     - install
   #     - core
   tasks:
-    - include: tasks/core.yml
-    - include: tasks/utils.yml
+    # - import_tasks: tasks/yay.yml
+    # - import_tasks: tasks/utils.yml
+    - import_tasks: tasks/users.yml
     # - include: tasks/git-setup.yml
     # - include: tasks/core-setup.yml
     # - include: tasks/node-setup.yml
