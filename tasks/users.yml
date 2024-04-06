@@ -1,0 +1,15 @@
+- name: Add the user
+  ansible.builtin.user:
+    name: "{{ user }}"
+    group: wheel
+    create_home: false
+    password: "{{ vault_password | password_hash('sha512') }}"
+
+- name: Add user to sudoers
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/12-{{ user }}
+    line: '{{ user }} ALL=(ALL:ALL) ALL'
+    create: true
+    mode: 0644
+    validate: 'visudo -cf %s'
