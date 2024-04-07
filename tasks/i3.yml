@@ -1,0 +1,33 @@
+
+- name: Install i3
+  tags:
+    - workstation
+  block:
+  - name: Install x packages
+    community.general.pacman:
+      name: 
+        - xorg-server
+        - xorg-xinit
+      state: latest
+
+  - name: Install i3
+    community.general.pacman:
+      name: 
+        - gnu-free-fonts
+        - i3-wm
+        - i3status
+      state: latest
+
+  - name: Install core GUI stuff
+    community.general.pacman:
+      name: 
+        - dmenu
+      state: latest
+
+  - name: Install GUI stuff
+    community.general.pacman:
+      name: 
+        - alacritty
+        - tmux
+        - firefox
+      state: latest
