@@ -20,6 +20,7 @@
     - import_tasks: tasks/users.yml
     - import_tasks: tasks/dotfiles.yml
     - import_tasks: tasks/oh-my-zsh.yml
+    - import_tasks: tasks/lvim.yml
     # - include: tasks/git-setup.yml
     # - include: tasks/core-setup.yml
     # - include: tasks/node-setup.yml

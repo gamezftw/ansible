@@ -1,0 +1,59 @@
+- name: Install lvim
+  tags:
+    - workstation
+  block:
+  - name: Install lvim prerequisites
+    community.general.pacman:
+      name: 
+        - neovim
+        - git
+        - make
+        - python-pip
+        - python
+        - npm
+        - nodejs
+        - cargo 
+        - ripgrep 
+      state: latest
+  
+  - name: Resolve EACCES permissions when installing packages globally to avoid error when installing packages with npm
+    vars:
+      npm_prefix: '/home/{{ user }}/.npm-global'
+    block: 
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: "{{ npm_prefix }}"
+        state: directory
+        mode: '0755'
+      become: true
+      become_user: "{{ user }}"
+
+    - name: Get npm prefix config
+      command: npm config get prefix 
+      register: npm_config_prefix
+      become: true
+      become_user: "{{ user }}"
+
+    - name: Configure npm to use the new directory path
+      command: npm config set prefix {{ npm_prefix }}
+      when: npm_config_prefix.stdout != npm_prefix
+      become: true
+      become_user: "{{ user }}"
+
+  - name: Download lvim installation script
+    get_url:
+      # release branch shows an error, using nightly until then
+      # url: https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh
+      url: https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh
+      dest: /tmp/install_lvim.sh
+
+  - name: Run lvim installation script
+    command: bash /tmp/install_lvim.sh --yes --no-install-dependencies --overwrite
+    # uncomment this when release branch is fixed
+    # environment:
+    #   LV_BRANCH: 'release-1.3/neovim-0.9'
+    register: lvim_result
+    # failed_when: "'FAILED' in ohmyzsh_result.stderr"
+    become: true
+    become_user: "{{ user }}"
+  - debug: var=lvim_result.stdout_lines
