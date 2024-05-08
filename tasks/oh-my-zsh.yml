@@ -1,3 +1,7 @@
+- name: Install lvim
+  tags:
+    - workstation
+  block:
   - name: Install zsh
     community.general.pacman:
       name: 

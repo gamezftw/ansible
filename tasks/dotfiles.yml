@@ -1,3 +1,6 @@
+- name: Install i3
+  tags:
+    - workstation
 - name: Clone dotfiles repo
   ansible.builtin.git:
     repo: https://gitlab.com/nikola.stojkovic/dotfiles_new
