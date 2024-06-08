@@ -1,0 +1,13 @@
+
+- name: Install graphics drivers
+  tags:
+    - workstation
+  block:
+  - name: Install nvidia
+    tags:
+      - nvidia
+    community.general.pacman:
+      name: 
+        - nvidia
+        - nvidia-settings
+      state: latest
