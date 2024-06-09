@@ -1,0 +1,35 @@
+
+- name: Install rclone
+  tags:
+    - workstation
+  block:
+  - name: Install rclone
+    tags:
+      - rclone
+    community.general.pacman:
+      name: 
+        - rclone
+      state: latest
+
+  - name: Install ansible galaxy roles
+    community.general.ansible_galaxy_install:
+      type: role
+      requirements_file: requirements.yml
+
+  - name: Install and configure rclone
+    ansible.builtin.include_role:
+      name: stefangweichinger.ansible_rclone
+    vars:
+      rclone_configs:
+        - name: remote
+          properties:
+            type: onedrive
+            client_id: "{{ vault_onedrive_client_id }}"
+            client_secret: "{{ vault_onedrive_client_secret }}"
+            token: "{{ vault_onedrive_token | to_json }}"
+            drive_id: "{{ vault_onedrive_drive_id }}"
+            drive_type: business
+      rclone_config_location: "/home/{{ user }}/.config/rclone/rclone.conf"
+      rclone_config_owner:
+         OWNER: "{{ user }}"
+         GROUP: "wheel"

@@ -1,4 +1,5 @@
 https://docs.ansible.com/ansible/latest/collections_guide/collections_installing.html#installing-collections-with-ansible-galaxy
+https://docs.ansible.com/ansible/latest/collections_guide/collections_installing.html#install-multiple-collections-with-a-requirements-file
 https://docs.ansible.com/ansible/5/user_guide/collections_using.html
 https://wiki.archlinux.org/title/Ansible
 https://github.com/kewlfft/ansible-aur
@@ -27,6 +28,13 @@ https://wiki.archlinux.org/title/Systemd-timesyncd
 # dotfiles
 https://news.ycombinator.com/item?id=11071754
 https://www.atlassian.com/git/tutorials/dotfiles
+
+# sshfs
+https://www.digitalocean.com/community/tutorials/how-to-use-sshfs-to-mount-remote-file-systems-over-ssh
+
+# molecule
+https://github.com/CarloDePieri/docker-archlinux-ansible
+https://github.com/CarloDePieri/docker-archlinux-ansible?tab=readme-ov-file#problems-with-ulimits-and-makepkg
 
 
 

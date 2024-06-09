@@ -1,2 +1,4 @@
 collections:
   - name: kewlfft.aur
+roles:
+  - name: stefangweichinger.ansible_rclone
