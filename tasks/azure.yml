@@ -1,0 +1,98 @@
+- block: 
+  - name: Install pacman requirements for ansible.builtin.pip
+    community.general.pacman:
+      name: 
+        # - python-virtualenv
+        - azure-cli
+      state: present
+
+  # This collection comes with ansible package but it is not saved in `.ansible/collections` so this will do that. It will also install latest version
+  # - name: Install azure.azcollection
+  #   command: ansible-galaxy collection install azure.azcollection --force
+
+  # - name: Ensure the virtual environment exists
+  #   pip:
+  #     name: psutil
+  #     virtualenv: "{{ venv_dir }}"
+  #     virtualenv_command: "{{ ansible_python_interpreter }} -m venv"
+
+  - name: Install requirements
+    pip: 
+      requirements: "{{ venv_requirements }}"
+      virtualenv: "/home/{{ user }}/venvs/ansible-azure-venv"
+      virtualenv_site_packages: yes
+      virtualenv_command: "python -m venv"
+    become: true
+    become_user: "{{ user }}"
+
+    # `distutils` no longer exist in python3.12 and are deprecated
+  - name: Install setuptools for distutils
+    pip: 
+      name: setuptools
+      virtualenv: "/home/{{ user }}/venvs/ansible-azure-venv"
+    become: true
+    become_user: "{{ user }}"
+
+  - name: Create azure resources
+    # tags:
+    #   - workstation
+    block: 
+      - name: Get existing azure ad application
+        azure.azcollection.azure_rm_adapplication_info:
+          app_display_name: "{{ azure_ad_application_display_name }}"
+        become: true
+        become_user: "{{ user }}"
+        vars:
+          ansible_python_interpreter: "{{ venv_python }}"
+        register: azure_ad_application
+      # - debug: var=azure_ad_application
+
+      - name: Create a role definition
+        azure.azcollection.azure_rm_roledefinition:
+          name: myTestRole
+          # scope: /subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/myresourceGroup
+          permissions:
+            - actions:
+                - "User.Read"
+              # data_actions:
+              #   - "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/write"
+          # assignable_scopes:
+          #   - "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+      - name: Create azure resources
+        # tags:
+        #   - workstation
+        block: 
+        - name: Get tenantId for the azure subscription
+          command: 'az account show --query "{subscription_id: id, tenant_id: tenantId}"'
+          register: azure_account_info_json
+        - debug: var=azure_account_info_json
+
+        - name: Transform azure_account_info_json variable to object
+          ansible.builtin.set_fact:
+              azure_account_info: "{{ azure_account_info_json.stdout | from_json }}"
+        # - debug: var=azure_account_info
+
+        - name: Create ad application
+          azure.azcollection.azure_rm_adapplication:
+            display_name: "{{ azure_ad_application_display_name }}"
+            tenant: "{{ azure_account_info.tenant_id }}"
+            sign_in_audience: "AzureADandPersonalMicrosoftAccount"
+            web_reply_urls:
+              - http://localhost:53682/
+          register: ad_application_output
+        - debug: var=ad_application_output
+        when: azure_ad_application.applications == []
+
+
+    vars:
+      ansible_python_interpreter: "{{ venv_python }}"
+    become: true
+    become_user: "{{ user }}"
+
+
+  vars:
+    venv_dir: "/home/{{ user }}/venvs/ansible-azure-venv"
+    venv_python: "{{ venv_dir }}/bin/python"
+    venv_requirements: /home/nikola/.ansible/collections/ansible_collections/azure/azcollection/requirements.txt
+    azure_ad_application_display_name: "ansible_test"
