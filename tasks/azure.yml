@@ -2,19 +2,12 @@
   - name: Install pacman requirements for ansible.builtin.pip
     community.general.pacman:
       name: 
-        # - python-virtualenv
         - azure-cli
       state: present
 
   # This collection comes with ansible package but it is not saved in `.ansible/collections` so this will do that. It will also install latest version
-  # - name: Install azure.azcollection
-  #   command: ansible-galaxy collection install azure.azcollection --force
-
-  # - name: Ensure the virtual environment exists
-  #   pip:
-  #     name: psutil
-  #     virtualenv: "{{ venv_dir }}"
-  #     virtualenv_command: "{{ ansible_python_interpreter }} -m venv"
+  - name: Install azure.azcollection
+    command: ansible-galaxy collection install azure.azcollection --force
 
   - name: Install requirements
     pip: 
@@ -46,18 +39,6 @@
           ansible_python_interpreter: "{{ venv_python }}"
         register: azure_ad_application
       # - debug: var=azure_ad_application
-
-      - name: Create a role definition
-        azure.azcollection.azure_rm_roledefinition:
-          name: myTestRole
-          # scope: /subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/myresourceGroup
-          permissions:
-            - actions:
-                - "User.Read"
-              # data_actions:
-              #   - "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/write"
-          # assignable_scopes:
-          #   - "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
       - name: Create azure resources
         # tags:
