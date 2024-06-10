@@ -1,4 +1,7 @@
-- block: 
+- name: rclone gcloud configuration
+  tags:
+    - rclone-azure
+  block:
   - name: Install pacman requirements for ansible.builtin.pip
     community.general.pacman:
       name: 
@@ -12,7 +15,7 @@
   - name: Install requirements
     pip: 
       requirements: "{{ venv_requirements }}"
-      virtualenv: "/home/{{ user }}/venvs/ansible-azure-venv"
+      virtualenv: "{{ venv_dir }}"
       virtualenv_site_packages: yes
       virtualenv_command: "python -m venv"
     become: true
@@ -22,7 +25,7 @@
   - name: Install setuptools for distutils
     pip: 
       name: setuptools
-      virtualenv: "/home/{{ user }}/venvs/ansible-azure-venv"
+      virtualenv: "{{ venv_dir }}"
     become: true
     become_user: "{{ user }}"
 
@@ -92,5 +95,10 @@
   vars:
     venv_dir: "/home/{{ user }}/venvs/ansible-azure-venv"
     venv_python: "{{ venv_dir }}/bin/python"
-    venv_requirements: /home/nikola/.ansible/collections/ansible_collections/azure/azcollection/requirements.txt
+    # venv_requirements: /home/nikola/.ansible/collections/ansible_collections/azure/azcollection/requirements.txt
     azure_ad_application_display_name: "ansible_test"
+    venv_requirements_possible_paths:
+        - "/home/{{ user }}/.ansible/collections/ansible_collections/azure/azcollection/requirements.txt"
+        - /usr/lib/python3.12/site-packages/ansible_collections/azure/azcollection/requirements-azure.txt
+    venv_requirements: "{{ lookup('first_found', venv_requirements_possible_paths) }}"
+

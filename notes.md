@@ -36,6 +36,8 @@ https://www.digitalocean.com/community/tutorials/how-to-use-sshfs-to-mount-remot
 https://github.com/CarloDePieri/docker-archlinux-ansible
 https://github.com/CarloDePieri/docker-archlinux-ansible?tab=readme-ov-file#problems-with-ulimits-and-makepkg
 
+# json_query
+https://docs.ansible.com/ansible/latest/collections/community/general/docsite/filter_guide_selecting_json_data.html
 
 # onedrive rclone
 https://rclone.org/onedrive/
