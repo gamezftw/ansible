@@ -36,23 +36,6 @@
         register: gcp_access_token
         no_log: true
 
-      # - name: Get existing google cloud project
-      #   gcp_resourcemanager_project_info:
-      #     # project: "{{ gcp_project_name}}"
-      #     auth_kind: accesstoken
-      #     page_size: 100
-      #   environment:
-      #     GCP_ACCESS_TOKEN: "{{ gcp_access_token.stdout }}"
-      #   register: gcp_existing_projects
-      # - debug: var=gcp_existing_projects
-
-        # TODO: is it possible to filter projects in gcp_resourcemanager_project_info? With project specified it still returns all projects
-      # - set_fact:
-      #     gcp_existing_project: "{{ gcp_existing_projects | json_query(query) }}"
-      #   vars:
-      #     query: "resources[?projectId == '{{ gcp_project_id }}']"
-      # - debug: var=gcp_existing_project
-
       - name: Create gcp resources
         block: 
         - name: Get gcp organization
@@ -65,49 +48,76 @@
         - name: Create gcp project
           google.cloud.gcp_resourcemanager_project:
             name: "{{ gcp_project_name }}"
-            # id: "{{ gcp_project_name }}-{{ 10000000000 | random }}"
             id: "{{ gcp_project_id }}"
             auth_kind: accesstoken
             parent:
               type: organization
               id: "{{ gcp_org_id }}"
             state: present
-          environment:
-            GCP_ACCESS_TOKEN: "{{ gcp_access_token.stdout }}"
 
         - name: Create a service account
           google.cloud.gcp_iam_service_account:
             name: "sa-{{ gcp_project_name }}@{{ gcp_project_id }}.iam.gserviceaccount.com"
-            display_name: "{{ gcp_service_account_name }}"
+            display_name: "{{ gcp_service_account_display_name }}"
             project: "{{ gcp_project_id }}"
             auth_kind: accesstoken
             state: present
-          environment:
-            GCP_ACCESS_TOKEN: "{{ gcp_access_token.stdout }}"
 
-        - name: Create a drive service
+        - name: Add drive api integration services
           google.cloud.gcp_serviceusage_service:
             name: drive.googleapis.com
             project: "{{ gcp_project_id }}"
             auth_kind: accesstoken
             state: present
-          environment:
-            GCP_ACCESS_TOKEN: "{{ gcp_access_token.stdout }}"
+
+        - name: Create a directory if it does not exist
+          ansible.builtin.file:
+            path: "{{ gcp_service_account_credentials_directory }}"
+            state: directory
+
+        - name: Create a service account key
+          google.cloud.gcp_iam_service_account_key:
+            service_account:
+              name: "{{ gcp_service_account_name }}"
+            private_key_type: TYPE_GOOGLE_CREDENTIALS_FILE
+            path: "{{ gcp_service_account_credentials_file }}"
+            project: "{{ gcp_project_id }}"
+            auth_kind: accesstoken
+            state: present
+
+        environment:
+          GCP_ACCESS_TOKEN: "{{ gcp_access_token.stdout }}"
     vars:
       gcloud_cli: /opt/google-cloud-cli/bin/gcloud
-      gcp_project_name: nikola-ansible
-      gcp_project_id_number: 9825114222
-      gcp_project_id: "{{ gcp_project_name }}-{{ gcp_project_id_number}}"
-      gcp_service_account_name: "{{ gcp_project_id}}-service-account"
+      gcp_service_account_name: "sa-{{ gcp_project_name }}@{{ gcp_project_id }}.iam.gserviceaccount.com"
       ansible_python_interpreter: "{{ venv_python }}"
     become: true
     become_user: "{{ user }}"
-
+       
+  - name: Install and configure rclone
+    ansible.builtin.include_role:
+      name: stefangweichinger.ansible_rclone
+    vars:
+      rclone_configs:
+        - name: gcloud
+          properties:
+            type: drive
+            scope: drive
+            service_account_file: "{{ gcp_service_account_credentials_file}}"
+      rclone_config_location: "/home/{{ user }}/.config/rclone/rclone.conf"
+      rclone_config_owner:
+         OWNER: "{{ user }}"
+         GROUP: "wheel"
 
   vars:
+    gcp_project_name: nikola-ansible
+    gcp_project_id_number: 9132537834
+    gcp_project_id: "{{ gcp_project_name }}-{{ gcp_project_id_number}}"
+    gcp_service_account_display_name: "{{ gcp_project_id}}-service-account"
+    gcp_service_account_credentials_directory: "/home/{{ user }}/.credentials"
+    gcp_service_account_credentials_file: "{{ (gcp_service_account_credentials_directory, gcp_service_account_display_name) | path_join }}.json"
     venv_dir: "/home/{{ user }}/venvs/ansible-gcloud-venv"
     venv_python: "{{ venv_dir }}/bin/python"
-    azure_ad_application_display_name: "ansible_test"
     venv_requirements_possible_paths:
       - /usr/lib/python3.12/site-packages/ansible_collections/google/cloud/requirements.txt
     venv_requirements: "{{ lookup('first_found', venv_requirements_possible_paths) }}"
