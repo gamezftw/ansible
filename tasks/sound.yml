@@ -1,0 +1,36 @@
+
+- name: Install sound stuff
+  tags:
+    - workstation
+  block:
+  - name: Install sof-firmware
+    tags:
+      - laptop
+    community.general.pacman:
+      name: 
+        - sof-firmware
+      state: latest
+
+  - name: Install pipewire
+    tags:
+      - pipewire
+    block:
+    - name: Install pipewire
+      community.general.pacman:
+        name: 
+          - pipewire
+          - wireplumber
+          - pipewire-pulse
+        state: latest
+
+  - name: Install pulseaudio
+    tags:
+      - pulseaudio
+    block:
+    - name: Install pipewire
+      community.general.pacman:
+        name: 
+          - pulseaudio
+          - pavucontrol
+          - pulseaudio-alsa
+        state: latest
