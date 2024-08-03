@@ -24,8 +24,6 @@
       create_home: true
       skeleton: /dev/null
       password: "{{ vault_password | password_hash('sha512') }}"
-    vars:
-      ansible_python_interpreter: "{{ venv_python }}"
 
   - name: Add user to sudoers
     become: true
@@ -36,5 +34,3 @@
       mode: 0644
       validate: 'visudo -cf %s'
 
-  vars:
-    venv_python: "{{ venv_tempdir.path }}/bin/python"
