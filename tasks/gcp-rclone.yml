@@ -1,6 +1,5 @@
 - name: rclone gcloud configuration
   tags:
-    - workstation
     - rclone-gcp
   block: 
   - name: Install python-jmespath

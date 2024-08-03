@@ -1,2 +1,2 @@
 #/usr/bin/env bash
-ansible-playbook local.yml --tags untagged,workstation,nvidia,pipewire
+ansible-playbook local.yml --tags untagged,nvidia,pipewire $1

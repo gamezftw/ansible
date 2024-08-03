@@ -1,6 +1,4 @@
 - name: Install lvim
-  tags:
-    - workstation
   block:
   - name: Install lvim prerequisites
     community.general.pacman:

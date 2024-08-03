@@ -1,2 +1,2 @@
 #/usr/bin/env bash
-ansible-playbook local.yml --tags workstation,pipewire,laptop
+ansible-playbook local.yml --tags pipewire,laptop

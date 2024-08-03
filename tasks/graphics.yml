@@ -4,7 +4,6 @@
   - name: Install nvidia
     tags:
       - nvidia
-      - workstation
     community.general.pacman:
       name: 
         - nvidia

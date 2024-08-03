@@ -1,7 +1,6 @@
 
 - name: Install rclone
   tags:
-    - workstation
     - rclone
   block:
   - name: Install rclone

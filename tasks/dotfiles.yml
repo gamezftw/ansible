@@ -1,6 +1,4 @@
 - name: Setup dotfiles
-  tags:
-    - workstation
   block: 
   - name: Clone dotfiles repo
     ansible.builtin.git:

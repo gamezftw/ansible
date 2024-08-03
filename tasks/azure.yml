@@ -30,8 +30,6 @@
     become_user: "{{ user }}"
 
   - name: Create azure resources
-    # tags:
-    #   - workstation
     block: 
       - name: Get existing azure ad application
         azure.azcollection.azure_rm_adapplication_info:
@@ -44,8 +42,6 @@
       # - debug: var=azure_ad_application
 
       - name: Create azure resources
-        # tags:
-        #   - workstation
         block: 
         - name: Get tenantId for the azure subscription
           command: 'az account show --query "{subscription_id: id, tenant_id: tenantId}"'

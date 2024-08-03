@@ -1,7 +1,5 @@
 
 - name: Install i3
-  tags:
-    - workstation
   block:
   - name: Install x packages
     community.general.pacman:
