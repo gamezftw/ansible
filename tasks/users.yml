@@ -30,7 +30,7 @@
       line: '{{ user }} ALL=(ALL:ALL) ALL'
       create: true
       mode: 0644
-    validate: 'visudo -cf %s'
+      validate: 'visudo -cf %s'
 
   vars:
     venv_python: "{{ venv_dir }}/bin/python"
