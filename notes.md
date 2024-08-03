@@ -91,3 +91,7 @@ currently this is the only way I could figure out permissions for the app
 
 
 https://medium.com/@ridaehamdani/creating-ansible-tasks-to-install-zsh-8aca8929023d
+
+# ansible nested tags
+https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html#tag-inheritance-for-includes-blocks-and-the-apply-keyword
+

@@ -1,10 +1,9 @@
 
 - name: Install sound stuff
-  tags:
-    - workstation
   block:
   - name: Install sof-firmware
     tags:
+      - workstation
       - laptop
     community.general.pacman:
       name: 
@@ -13,6 +12,7 @@
 
   - name: Install pipewire
     tags:
+      - workstation
       - pipewire
     block:
     - name: Install pipewire
@@ -25,6 +25,7 @@
 
   - name: Install pulseaudio
     tags:
+      - workstation
       - pulseaudio
     block:
     - name: Install pipewire

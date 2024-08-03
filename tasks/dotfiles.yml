@@ -14,7 +14,3 @@
     command: /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
     become: true
     become_user: "{{ user }}"
-
-  - debug: var={{ 10000000000 | random }}
-    tags:
-      - NONEXISTENTTAG

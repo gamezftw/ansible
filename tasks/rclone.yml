@@ -2,13 +2,11 @@
 - name: Install rclone
   tags:
     - workstation
+    - rclone
   block:
   - name: Install rclone
-    tags:
-      - rclone
     community.general.pacman:
-      name: 
-        - rclone
+      name: rclone
       state: latest
 
   - name: Install ansible galaxy roles
