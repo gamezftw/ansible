@@ -1,6 +1,6 @@
-  - name: Install pacman util packages
+  - name: Install godot
     block:
-    - name: Install pacman util packages
+    - name: Install godot
       tags:
         - godot
       community.general.pacman:
@@ -8,7 +8,7 @@
           - godot
         state: present
 
-    - name: Install pacman util packages
+    - name: Install godot vulkan-intel support
       community.general.pacman:
         name: vulkan-intel
         tags:
