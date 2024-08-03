@@ -14,7 +14,7 @@
   #     virtualenv_command: "python -m venv"
   - name: Install passlib
     community.general.pacman:
-      name: passlib
+      name: python-passlib
       state: present
 
   - name: Add the user
