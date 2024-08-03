@@ -4,12 +4,12 @@
     ansible.builtin.tempfile:
       state: directory
       prefix: venv
-    register: venv_dir
+    register: venv_tempdir
 
   - name: Install requirements
     pip: 
       name: passlib
-      virtualenv: "{{ venv_dir }}"
+      virtualenv: "{{ venv_tempdir.path }}"
       virtualenv_site_packages: yes
       virtualenv_command: "python -m venv"
     # become: true
@@ -22,6 +22,8 @@
       create_home: true
       skeleton: /dev/null
       password: "{{ vault_password | password_hash('sha512') }}"
+    vars:
+      ansible_python_interpreter: "{{ venv_python }}"
 
   - name: Add user to sudoers
     become: true
@@ -33,4 +35,4 @@
       validate: 'visudo -cf %s'
 
   vars:
-    venv_python: "{{ venv_dir }}/bin/python"
+    venv_python: "{{ venv_tempdir.path }}/bin/python"

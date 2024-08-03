@@ -2,6 +2,8 @@
   - name: Run the equivalent of "pacman -Sy" as a separate step
     community.general.pacman:
       update_cache: true
+    register: pacman_result
+    changed_when: pacman_result.cache_updated
 
   - name: Install package git base-devel from repo
     community.general.pacman:
