@@ -1,12 +1,17 @@
   - name: Install pacman util packages
-    community.general.pacman:
-      name: 
-        - godot
-      state: present
-
-  - name: Install pacman util packages
-    community.general.pacman:
-      name: vulkan-intel
+    block:
+    - name: Install pacman util packages
       tags:
-        - intel-gpu
-      state: present
+        - godot
+      community.general.pacman:
+        name: 
+          - godot
+        state: present
+
+    - name: Install pacman util packages
+      community.general.pacman:
+        name: vulkan-intel
+        tags:
+          - godot
+          - intel-gpu
+        state: present
