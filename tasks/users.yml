@@ -1,19 +1,21 @@
 - name: Add user
   block: 
-  - name: Create temporary file
-    ansible.builtin.tempfile:
-      state: directory
-      prefix: venv
-    register: venv_tempdir
+  # - name: Create temporary file
+  #   ansible.builtin.tempfile:
+  #     state: directory
+  #     prefix: venv_
+  #   register: venv_tempdir
 
-  - name: Install requirements
-    pip: 
+  # - name: Install requirements
+  #   pip: 
+  #     name: passlib
+  #     virtualenv: "{{ venv_tempdir.path }}"
+  #     virtualenv_site_packages: yes
+  #     virtualenv_command: "python -m venv"
+  - name: Install passlib
+    community.general.pacman:
       name: passlib
-      virtualenv: "{{ venv_tempdir.path }}"
-      virtualenv_site_packages: yes
-      virtualenv_command: "python -m venv"
-    # become: true
-    # become_user: "{{ user }}"
+      state: present
 
   - name: Add the user
     ansible.builtin.user:
