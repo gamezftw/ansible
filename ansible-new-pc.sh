@@ -1,2 +1,2 @@
 #/usr/bin/env bash
-ansible-playbook local.yml --tags workstation,nvidia
+ansible-playbook local.yml --tags workstation,nvidia,pipewire
