@@ -11,6 +11,9 @@ https://docs.ansible.com/ansible/latest/collections/community/general/pacman_mod
 
 https://docs.ansible.com/ansible/latest/vault_guide/vault_managing_passwords.html#storing-passwords-in-third-party-tools-with-vault-password-client-scripts
 
+# tmuxinator
+https://github.com/tmuxinator/tmuxinator
+
 # good article for vault stuff
 https://www.digitalocean.com/community/tutorials/how-to-use-vault-to-protect-sensitive-ansible-data
 
