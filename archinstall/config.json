@@ -117,7 +117,7 @@
   "no_pkg_lookups": false,
   "ntp": true,
   "offline": false,
-  "packages": ["ansible"],
+  "packages": ["ansible", "git", "openssh"],
   "parallel downloads": 0,
   "profile_config": null,
   "save_config": null,
