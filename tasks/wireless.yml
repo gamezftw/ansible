@@ -1,0 +1,10 @@
+
+- block:
+  - name: Install tp link usb driver
+    tags:
+      - tplink-usb
+    kewlfft.aur.aur:
+      use: yay
+      name: rtl8821au-dkms-git
+    become: true
+    become_user: aur_builder

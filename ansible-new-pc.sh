@@ -1,2 +1,2 @@
 #/usr/bin/env bash
-ansible-playbook workstation.yml --tags untagged,nvidia,pipewire $1
+ansible-playbook workstation.yml --tags untagged,nvidia,pipewire,tplink-usb $1
