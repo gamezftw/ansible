@@ -1,0 +1,3 @@
+- hosts: pc
+  tasks:
+    - import_tasks: tasks/galaxy-requirements.yml

@@ -1,6 +1,5 @@
 - hosts: pc
   tasks:
-    - import_tasks: tasks/galaxy-requirements.yml
     - import_tasks: tasks/yay.yml
     - import_tasks: tasks/utils.yml
     - import_tasks: tasks/users.yml
