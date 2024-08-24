@@ -10,6 +10,7 @@
       use: yay
       name:
         - ripgrep
+        - jq
     become: true
     become_user: aur_builder
 
