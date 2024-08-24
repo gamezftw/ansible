@@ -1,0 +1,19 @@
+- block: 
+  - name: Download localstack tarball
+    get_url:
+      url: https://github.com/localstack/localstack-cli/releases/download/v3.6.0/localstack-cli-3.6.0-linux-amd64-onefile.tar.gz
+      dest: "{{ localstack_tarball }}"
+
+  - name: Extract foo.tgz into /var/lib/foo
+    ansible.builtin.unarchive:
+      src: "{{ localstack_tarball }}"
+      dest: "/home/{{ user }}/.local/bin"
+      mode: '744'
+
+  # - name: Validate localstack
+  #   command: "bash {{ artifacts_credprovider_script }}"
+
+  vars:
+    localstack_tarball: "/tmp/localstack-cli-3.6.0-linux-amd64-onefile.tar.gz"
+  become: true
+  become_user: "{{ user }}"

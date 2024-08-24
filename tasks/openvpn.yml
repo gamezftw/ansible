@@ -1,0 +1,6 @@
+- tags: openvpn
+  block: 
+  - name: Install openvpn
+    community.general.pacman:
+      name: 
+      - openvpn

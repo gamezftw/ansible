@@ -1,0 +1,5 @@
+- block: 
+  - name: Install keepass
+    community.general.pacman:
+      name: 
+      - keepassxc
