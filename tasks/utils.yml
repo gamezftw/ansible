@@ -3,6 +3,8 @@
     community.general.pacman:
       name: 
         - less
+        - vim
+        - jq
       state: present
 
   - name: Install aur utils
@@ -10,7 +12,6 @@
       use: yay
       name:
         - ripgrep
-        - jq
     become: true
     become_user: aur_builder
 
