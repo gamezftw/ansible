@@ -1,0 +1,45 @@
+- block: 
+  - name: Download dotnet-install.sh
+    get_url:
+      url: https://dot.net/v1/dotnet-install.sh
+      dest: "{{ dotnet_install_script}}"
+      mode: '744'
+
+  - name: Install dotnet sdks
+    command: "{{ dotnet_install_script }} --install-dir /home/{{ user }}/.dotnet --channel {{ item }}"
+    with_list:
+      - "6.0"
+      - "8.0"
+
+  - name: Insert/Update .zshrc with dotnet related stuff
+    ansible.builtin.blockinfile:
+      path: "/home/{{ user }}/.zshrc"
+      marker: "# {mark} ANSIBLE MANAGED BLOCK - DOTNET"
+      insertafter: "# ANSIBLE MANAGED STUFF"
+      block: |
+        export DOTNET_ROOT={{ dotnet_root }}
+        export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+
+  - name: Download azure devops artifacts credentials provider install script
+    get_url:
+      url: https://aka.ms/install-artifacts-credprovider.sh
+      dest: "{{ artifacts_credprovider_script }}"
+
+  - name: Run azure devops artifacts credentials provider install script
+    command: "bash {{ artifacts_credprovider_script }}"
+
+  - name: Install dotnet-ef 6
+    shell: "$HOME/.dotnet/dotnet tool install --global dotnet-ef --version 6.0.*"
+
+  - name: Install rider
+    kewlfft.aur.aur:
+      use: yay
+      name: rider
+    become: true
+    become_user: aur_builder
+  vars:
+    artifacts_credprovider_script: "/tmp/install-artifacts-credprovider.sh"
+    dotnet_install_script: "/home/{{ user }}/.local/bin/dotnet-install.sh"
+    dotnet_root: "$HOME/.dotnet"
+  become: true
+  become_user: "{{ user }}"

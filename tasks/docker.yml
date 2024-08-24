@@ -1,0 +1,13 @@
+- tags: docker
+  block: 
+  - name: Install docker
+    community.general.pacman:
+      name: 
+      - docker
+      - docker-compose
+
+  - name: Add user to docker group
+    ansible.builtin.user:
+      name: "{{ user }}"
+      groups: docker
+      append: yes

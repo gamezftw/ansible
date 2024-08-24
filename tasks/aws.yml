@@ -1,0 +1,10 @@
+- tags: aws
+  block: 
+  - name: Install aws-cli v2
+    kewlfft.aur.aur:
+      use: yay
+      name: 
+      - aws-cli-v2-bin
+      - aws-session-manager-plugin
+    become: true
+    become_user: aur_builder
