@@ -32,6 +32,8 @@ https://wiki.archlinux.org/title/Systemd-timesyncd
 https://news.ycombinator.com/item?id=11071754
 https://www.atlassian.com/git/tutorials/dotfiles
 
+## TODO: config config --local status.showUntrackedFiles no
+
 # sshfs
 https://www.digitalocean.com/community/tutorials/how-to-use-sshfs-to-mount-remote-file-systems-over-ssh
 

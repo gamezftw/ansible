@@ -12,3 +12,11 @@
     command: /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
     become: true
     become_user: "{{ user }}"
+
+  - name: Insert/Update .zshrc with dotnet related stuff
+    ansible.builtin.blockinfile:
+      path: "/home/{{ user }}/.zshrc"
+      marker: "# {mark} ANSIBLE MANAGED BLOCK - DOTFILES"
+      insertafter: "# ANSIBLE MANAGED STUFF"
+      block: |
+        alias config='/usr/bin/git --git-dir=/home/{{ user }}/.dotfiles/ --work-tree=/home/{{ user }}'
