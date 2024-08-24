@@ -35,6 +35,7 @@
     kewlfft.aur.aur:
       use: yay
       name:
+        - brave-bin
         - nordic-theme
     become: true
     become_user: aur_builder
