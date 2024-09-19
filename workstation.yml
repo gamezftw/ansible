@@ -14,10 +14,10 @@
     - import_tasks: tasks/azure.yml
     - import_tasks: tasks/gcp-rclone.yml
     - import_tasks: tasks/wireless.yml
-    # # - import_tasks: tasks/rng.yml
     - import_tasks: tasks/dotnet.yml
     - import_tasks: tasks/docker.yml
     - import_tasks: tasks/aws.yml
     - import_tasks: tasks/keepass.yml
+    - import_tasks: tasks/ssh-agent.yml
     - import_tasks: tasks/localstack.yml
     - import_tasks: tasks/openvpn.yml

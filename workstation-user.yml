@@ -19,5 +19,6 @@
     # - import_tasks: tasks/docker.yml
     # - import_tasks: tasks/aws.yml
     # - import_tasks: tasks/keepass.yml
+    - import_tasks: tasks/ssh-agent.yml
     # - import_tasks: tasks/localstack.yml
     # - import_tasks: tasks/openvpn.yml
