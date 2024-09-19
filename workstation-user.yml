@@ -1,0 +1,23 @@
+- hosts: pc
+  tasks:
+    # - import_tasks: tasks/yay.yml
+    # - import_tasks: tasks/utils.yml
+    - import_tasks: tasks/users.yml
+    - import_tasks: tasks/dotfiles.yml
+    - import_tasks: tasks/oh-my-zsh.yml
+    - import_tasks: tasks/lvim.yml
+    # - import_tasks: tasks/graphics.yml
+    # - import_tasks: tasks/i3.yml
+    # - import_tasks: tasks/sound.yml
+    # - import_tasks: tasks/godot.yml
+    # - import_tasks: tasks/rclone.yml
+    # - import_tasks: tasks/azure.yml
+    # - import_tasks: tasks/gcp-rclone.yml
+    # - import_tasks: tasks/wireless.yml
+    # # - import_tasks: tasks/rng.yml
+    - import_tasks: tasks/dotnet.yml
+    # - import_tasks: tasks/docker.yml
+    # - import_tasks: tasks/aws.yml
+    # - import_tasks: tasks/keepass.yml
+    # - import_tasks: tasks/localstack.yml
+    # - import_tasks: tasks/openvpn.yml
