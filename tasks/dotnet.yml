@@ -28,8 +28,8 @@
   - name: Run azure devops artifacts credentials provider install script
     command: "bash {{ artifacts_credprovider_script }}"
 
-  - name: Install dotnet-ef 6
-    shell: "$HOME/.dotnet/dotnet tool install --global dotnet-ef --version 6.0.*"
+  # - name: Install dotnet-ef 6
+  #   shell: "$HOME/.dotnet/dotnet tool install --global dotnet-ef --version 6.0.*"
 
   - name: Install rider
     kewlfft.aur.aur:
