@@ -23,20 +23,14 @@
         path: "{{ npm_prefix }}"
         state: directory
         mode: '0755'
-      become: true
-      become_user: "{{ user }}"
 
     - name: Get npm prefix config
       command: npm config get prefix 
       register: npm_config_prefix
-      become: true
-      become_user: "{{ user }}"
 
     - name: Configure npm to use the new directory path
       command: npm config set prefix {{ npm_prefix }}
       when: npm_config_prefix.stdout != npm_prefix
-      become: true
-      become_user: "{{ user }}"
 
   - name: Download lvim installation script
     get_url:
@@ -52,6 +46,16 @@
     #   LV_BRANCH: 'release-1.3/neovim-0.9'
     register: lvim_result
     # failed_when: "'FAILED' in ohmyzsh_result.stderr"
-    become: true
-    become_user: "{{ user }}"
   - debug: var=lvim_result.stdout_lines
+
+  - name: Insert/Update .zshenv with dotnet related stuff
+    ansible.builtin.blockinfile:
+      create: true
+      path: "/home/{{ user }}/.zshenv"
+      marker: "# {mark} ANSIBLE MANAGED BLOCK - LVIM"
+      insertafter: "# ANSIBLE MANAGED STUFF"
+      block: |
+        export PATH=$HOME/.local/bin:$PATH
+
+  become: true
+  become_user: "{{ user }}"
