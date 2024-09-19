@@ -1,0 +1,10 @@
+  - name: Install remmina
+    tags:
+      - rdp
+    block:
+    - name: Install remmina and rdp support
+      community.general.pacman:
+        name: 
+          - remmina
+          - freerdp
+        state: present
