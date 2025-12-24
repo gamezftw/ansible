@@ -97,3 +97,8 @@ https://medium.com/@ridaehamdani/creating-ansible-tasks-to-install-zsh-8aca89290
 # ansible nested tags
 https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html#tag-inheritance-for-includes-blocks-and-the-apply-keyword
 
+
+# TODO:  keepass 
+systemctl status --user app-org.keepassxc.KeePassXC@autostart.service
+keepass dotfiles
+

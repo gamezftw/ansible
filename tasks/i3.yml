@@ -6,6 +6,7 @@
       name: 
         - xorg-server
         - xorg-xinit
+        - x11-ssh-askpass
       state: latest
 
   - name: Install i3

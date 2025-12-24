@@ -11,9 +11,10 @@
       path: "{{ envd }}"
       state: directory
 
+  # something doesn't work
   - name: Set SSH_AUTH_SOCK
     ansible.builtin.copy:
-      content: 'SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"'
+      content: 'SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"'
       dest: "{{ (envd, 'ssh-agent.conf') | path_join }}"
 
   vars:

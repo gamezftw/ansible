@@ -10,6 +10,7 @@
     with_list:
       - "6.0"
       - "8.0"
+      - "9.0"
 
   - name: Insert/Update .zshrc with dotnet related stuff
     ansible.builtin.blockinfile:
@@ -19,6 +20,7 @@
       block: |
         export DOTNET_ROOT={{ dotnet_root }}
         export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+        export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
   - name: Download azure devops artifacts credentials provider install script
     get_url:

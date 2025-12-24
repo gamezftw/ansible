@@ -1,0 +1,40 @@
+- tags:
+    - gns3
+  block: 
+  - name: Install gns3 prerequisites
+    kewlfft.aur.aur:
+      use: yay
+      name:
+        - qemu 
+        - docker
+        - vpcs
+        - dynamips
+        - libvirt
+        - ubridge
+        - inetutils
+        - dnsmasq # required for NAT
+        - tigervnc # required for vnc connection
+    become: true
+    become_user: aur_builder
+
+  - name: Install gns3
+    kewlfft.aur.aur:
+      use: yay
+      name:
+        - gns3-server
+        - gns3-gui  
+    become: true
+    become_user: aur_builder
+
+  - name: Enable and start libvirtd.service
+    ansible.builtin.systemd_service:
+      name: libvirtd.service
+      state: started
+      enabled: true
+
+  - name: Start default network
+    command: virsh net-start default
+
+  - name: Auto-start default network
+    command: virsh net-autostart default
+

@@ -1,0 +1,8 @@
+- tags: speech
+  block: 
+  - name: Install speech dispatcher
+    community.general.pacman:
+      name: speech-dispatcher
+      state: latest
+    become: true
+    become_user: aur_builder

@@ -1,19 +1,18 @@
+- name: Install lvim prerequisites
+  community.general.pacman:
+    name: 
+      - neovim
+      - git
+      - make
+      - python-pip
+      - python
+      - npm
+      - nodejs
+      - cargo 
+      - ripgrep 
+    state: latest
 - name: Install lvim
   block:
-  - name: Install lvim prerequisites
-    community.general.pacman:
-      name: 
-        - neovim
-        - git
-        - make
-        - python-pip
-        - python
-        - npm
-        - nodejs
-        - cargo 
-        - ripgrep 
-      state: latest
-  
   - name: Resolve EACCES permissions when installing packages globally to avoid error when installing packages with npm
     vars:
       npm_prefix: '/home/{{ user }}/.npm-global'

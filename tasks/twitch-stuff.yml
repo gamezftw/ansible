@@ -1,0 +1,16 @@
+- block: 
+  - name: Install streamlink and vlc
+    community.general.pacman:
+      name: 
+        - streamlink
+        - vlc
+        - vlc-plugin-ffmpeg
+        - libvdpau
+      state: latest
+
+  - name: Install chatterino
+    community.general.pacman:
+      name: chatterino2-bin
+      state: latest
+    become: true
+    become_user: aur_builder
