@@ -9,3 +9,18 @@
         - nvidia
         - nvidia-settings
       state: latest
+  - name: Install nvidia
+    kewlfft.aur.aur:
+      use: yay
+      name:
+        - nvidia-525xx
+    become: true
+    become_user: aur_builder
+  - name: Install nvidia
+    tags:
+      - nvidia
+      - nvidia-legacy
+    community.general.pacman:
+      name: 
+        - nvidia-settings
+      state: latest
