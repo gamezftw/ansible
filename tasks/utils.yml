@@ -12,6 +12,7 @@
       use: yay
       name:
         - ripgrep
+        - xremap-x11-bin
     become: true
     become_user: aur_builder
 

@@ -20,3 +20,6 @@
       insertafter: "# ANSIBLE MANAGED STUFF"
       block: |
         alias config='/usr/bin/git --git-dir=/home/{{ user }}/.dotfiles/ --work-tree=/home/{{ user }}'
+
+  # add this
+  # config config --local status.showUntrackedFiles no
