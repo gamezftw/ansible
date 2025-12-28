@@ -3,10 +3,16 @@
     community.general.pacman:
       name: 
         - streamlink
-        - vlc
-        - vlc-plugin-ffmpeg
-        - libvdpau
+        # - vlc
+        # - vlc-plugin-ffmpeg
+        # - libvdpau
+        - mpv
       state: latest
+
+  - name: Add streamlink config file
+    ansible.builtin.template:
+      src: tasks/twitch-stuff/streamlink/config
+      dest: $HOME/.config/streamlink/config
 
   - name: Install chatterino
     community.general.pacman:

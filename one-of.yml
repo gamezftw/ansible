@@ -1,5 +1,3 @@
 - hosts: pc
   tasks:
-    # - import_tasks: tasks/ssh-agent.yml
-    # - import_tasks: tasks/twitch-stuff.yml
-    - import_tasks: tasks/graphics.yml
+    - import_tasks: tasks/twitch-stuff/twitch-stuff.yml

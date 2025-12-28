@@ -1,0 +1,4 @@
+# Player options
+player=mpv
+twitch-low-latency
+# TODO: fine tune buffer for lower latency https://streamlink.github.io/cli.html#cmdoption-twitch-low-latency
