@@ -9,14 +9,18 @@
         - mpv
       state: latest
 
-  - name: Add streamlink config file
-    ansible.builtin.template:
-      src: tasks/twitch-stuff/streamlink/config
-      dest: $HOME/.config/streamlink/config
-
   - name: Install chatterino
     community.general.pacman:
       name: chatterino2-bin
       state: latest
     become: true
     become_user: aur_builder
+
+  - name: Update config files
+    block:
+    - name: Add streamlink config file
+      ansible.builtin.template:
+        src: tasks/twitch-stuff/streamlink/config
+        dest: $HOME/.config/streamlink/config
+    become: true
+    become_user: "{{ user }}"
