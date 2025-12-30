@@ -47,9 +47,11 @@
       ansible.builtin.template:
         src: tasks/i3/i3/config
         dest: $HOME/.config/i3/config
+        validate: i3 -C
     - name: Update i3 status config file
       ansible.builtin.template:
         src: tasks/i3/i3status/config
         dest: $HOME/.config/i3status/config
+        validate: i3status --run-once
     become: true
     become_user: "{{ user }}"
