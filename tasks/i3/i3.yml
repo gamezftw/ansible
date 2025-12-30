@@ -40,3 +40,16 @@
         - nordic-theme
     become: true
     become_user: aur_builder
+    
+  - name: Update config files
+    block:
+    - name: Update i3 config file
+      ansible.builtin.template:
+        src: tasks/i3/i3/config
+        dest: $HOME/.config/i3/config
+    - name: Update i3 status config file
+      ansible.builtin.template:
+        src: tasks/i3/i3status/config
+        dest: $HOME/.config/i3status/config
+    become: true
+    become_user: "{{ user }}"

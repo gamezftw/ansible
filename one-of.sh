@@ -1,3 +1,3 @@
 #/usr/bin/env bash
 
-ansible-playbook one-of.yml --tags nvidia
+ansible-playbook one-of.yml
