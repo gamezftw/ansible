@@ -10,10 +10,12 @@
         - nvidia-settings
       state: latest
   - name: Install nvidia
+    tags:
+      - nvidia-legacy
     kewlfft.aur.aur:
       use: yay
       name:
-        - nvidia-525xx
+        - nvidia-580xx-dkms
     become: true
     become_user: aur_builder
   - name: Install nvidia
