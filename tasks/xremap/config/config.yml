@@ -1,0 +1,9 @@
+modmap:
+  - name: Global
+    remap:
+      CapsLock: 
+        held: CapsLock
+        alone: Esc
+        alone_timeout_millis: 200
+      KEY_COMPOSE: KEY_LEFTMETA
+      KEY_ESC: KEY_GRAVE

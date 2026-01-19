@@ -1,3 +1,3 @@
 - hosts: pc
   tasks:
-    - import_tasks: tasks/i3/i3.yml
+    - import_tasks: tasks/xremap/xremap.yml

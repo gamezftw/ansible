@@ -1,0 +1,47 @@
+- block: 
+  - name: Install xremap
+    kewlfft.aur.aur:
+      use: yay
+      name: xremap-x11-bin
+    become: true
+    become_user: aur_builder
+
+  - block: 
+    - name: Copy service file
+      ansible.builtin.copy:
+        src: tasks/xremap/xremap.service
+        dest: "{{ home_path }}/.config/systemd/user/xremap.service"
+
+    - name: Link config file
+      ansible.builtin.file:
+        src: "{{ playbook_dir }}/tasks/xremap/config"
+        dest: "{{ home_path }}/.config/xremap"
+        state: link
+
+    - name: Enable xremap.service
+      ansible.builtin.systemd_service:
+        name: xremap.service
+        state: started
+        enabled: true
+        scope: user
+    become: true
+    become_user: "{{ user }}"
+    vars:
+      home_path: "/home/{{ user }}"
+      xremap_config_path: "{{ home_path }}/.config/xremap"
+
+  - name: Create file to load uniput module
+    ansible.builtin.copy:
+      content: 'uinput'
+      dest: /etc/modules-load.d/uinput.conf
+
+  - name: Create file to add udev rule
+    ansible.builtin.copy:
+      content: 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"'
+      dest: /etc/udev/rules.d/99-input.rules
+
+  - name: Add user to input group
+    ansible.builtin.user:
+      name: "{{ user }}"
+      groups: docker
+      append: yes
