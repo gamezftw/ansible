@@ -1,0 +1,23 @@
+- block: 
+  - name: Install pacman stuff
+    community.general.pacman:
+      name: 
+        - tmux
+        - ttf-meslo-nerd
+      state: latest
+
+  - block: 
+    - name: Link config file
+      ansible.builtin.file:
+        src: "{{ playbook_dir }}/tasks/tmux/config/tmux.conf"
+        dest: "{{ config_path }}/tmux.conf"
+        state: link
+  - name: Clone tpm repo
+    ansible.builtin.git:
+      repo: https://github.com/tmux-plugins/tpm
+      dest: "{{ home_path }}/.tmux/plugins/tpm"
+    become: true
+    become_user: "{{ user }}"
+  vars:
+    home_path: "/home/{{ user }}"
+    config_path: "{{ home_path }}/.config/tmux/"
