@@ -26,3 +26,7 @@ style = "Regular"
 [terminal.shell]
 args = ["-u", "new-session", "-A", "-s", "main"]
 program = "/usr/bin/tmux"
+
+[debug]
+persistent_logging = true
+log_level = "Warn"
